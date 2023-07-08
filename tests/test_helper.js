@@ -26,6 +26,7 @@ const blogsInDB = async () => {
   return blogs.map(blog => blog.toJSON())
 }
 
+
 module.exports = {
   blogsInDB, initialBlogs
 }
