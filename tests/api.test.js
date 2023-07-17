@@ -32,7 +32,8 @@ describe('Fetch from and add to DB tests', () => {
       title: "Test Blog Entry",
       author: "Testy McTester",
       url: "www.testblog.blog.test.blog",
-      likes: 1
+      likes: 1,
+      user: "notanuserID"
     }
 
     await api

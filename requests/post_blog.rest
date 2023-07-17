@@ -1,8 +1,10 @@
 POST http://localhost:3001/api/blogs
-Content-Type: : application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFwb3dlcnMiLCJpZCI6IjY0YWQwYWZmODM2NzE1MzA2ZDkwYmY3MyIsImlhdCI6MTY4OTA2Nzk2NX0.FIuRoYkU0BNfa0nb44-swkEZLrUFA3gRaJ-_K5PxAEQ
 
 {
-  "title": "test",
-  "author": "Testy McTestface",
-  "likes": 100
+  "title": "User extractor as middleware",
+  "author": "Should work now",
+  "url": "www.hopefully.fi",
+  "likes": 1
 }
