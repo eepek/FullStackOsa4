@@ -2,30 +2,39 @@ const config = require('../utils/config')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
+
 const modifyAuthHeader = (request, response, next) => {
-    // console.log(request)
+    //console.log('modifyAuthHeader', request.method)
+
     const authorization = request.get('authorization')
     if (authorization && authorization.startsWith('Bearer')) {
+      //console.log('token löytyi')
       request.token = authorization.replace('Bearer ', '')
       next()
     } else {
-      next()
+
+    //console.log('ei tokenia')
+    next()
     }
   }
 
 const userExtractor = async (request, response, next) => {
-  const authorization = request.token
-  if (authorization) {
-  const isTokenValid = jwt.verify(authorization, config.SECRET)
-    // console.log(isTokenValid)
-    if (!isTokenValid.id) {
-      return response.status(401).json({Error: 'Valid token required'}).end()
-    }
-  request.user = await User.findById(isTokenValid.id)
+  //console.log('userExtractor', request.method)
+  const authorization = await request.token
+  let isTokenValid = false
+  try {
+    isTokenValid = jwt.verify(authorization, config.SECRET)
+  } catch(error) {
+    //console.log('ei validi token', error)
+    next()
   }
-  next()
-  ///4.21-23
+  if (isTokenValid) {
+    //console.log('token validi, käyttäjä on:')
+    //console.log(isTokenValid.id)
 
+    request.user = await User.findById(isTokenValid.id.toString())
+    next()
+  }
 }
 
 module.exports = {modifyAuthHeader, userExtractor}
